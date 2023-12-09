@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:english4k/components/unit.dart';
 import 'package:flutter/foundation.dart';
@@ -17,14 +16,28 @@ class PageManu extends StatefulWidget {
 }
 
 class _PageManuState extends State<PageManu> {
+  FocusNode focusNode = FocusNode();
   List<Unit> units = [];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-          children: units.map((element) {
-        return UnitWdiget(unit: element);
-      }).toList()),
+    return RawKeyboardListener(
+      autofocus: true,
+      focusNode: focusNode,
+      onKey: (event) {
+        if (event is RawKeyDownEvent) {
+          String key = event.logicalKey.keyLabel;
+          if (key == "Escape") {
+            Navigator.pop(context);
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromRGBO(37, 137, 189, 0.6),
+        body: ListView(
+            children: units.map((element) {
+          return UnitWdiget(unit: element);
+        }).toList()),
+      ),
     );
   }
 
@@ -34,15 +47,15 @@ class _PageManuState extends State<PageManu> {
     String path = "assets/${widget.index}/data.json";
 
     if (kDebugMode) {
-      print("loading ${path}");
+      print("loading $path");
     }
     loadAsset(path).then((value) {
       Map<String, dynamic> hash = jsonDecode(value);
       List<Unit> units = List.empty(growable: true);
       List<dynamic> flashcards = hash['flashcard'] as List<dynamic>;
-      flashcards.forEach((element) {
+      for (var element in flashcards) {
         units.add(Unit.fromJson(widget.index, element));
-      });
+      }
       renderUnits(units);
     });
   }

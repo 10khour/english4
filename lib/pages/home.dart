@@ -2,17 +2,25 @@ import 'package:english4k/components/book_card.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildGrid());
+    return Scaffold(
+        backgroundColor: const Color.fromRGBO(37, 137, 189, 0.6),
+        body: Wrap(
+          runSpacing: 20,
+          spacing: 20,
+          children: getBooks(6),
+        ));
   }
 
-  Widget _buildGrid() => GridView.extent(
-      maxCrossAxisExtent: 150,
-      padding: const EdgeInsets.all(4),
-      mainAxisSpacing: 20,
-      crossAxisSpacing: 20,
-      children: _buildGridTileList(6));
-  List<Container> _buildGridTileList(int count) =>
-      List.generate(count, (i) => Container(child: BookCard(index: i + 1)));
+  List<Widget> getBooks(int count) {
+    int i = 1;
+    List<BookCard> cards = List.empty(growable: true);
+    for (i = 1; i <= 6; i++) {
+      cards.add(BookCard(index: i));
+    }
+    return cards;
+  }
 }

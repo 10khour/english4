@@ -8,18 +8,19 @@ class BookCard extends StatelessWidget {
   BookCard({super.key, required this.index});
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
+    return InkWell(
+      onTap: () {
         if (kDebugMode) {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { 
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) {
             return PageManu(index: index);
-           }));
+          }));
         }
       },
-      icon: Image.asset(
-        "assets/${index}.jpg",
-        scale: 1.0,
-        fit: BoxFit.contain,
+      child: Image.asset(
+        height: 450,
+        fit: BoxFit.fitHeight,
+        "assets/$index.jpg",
       ),
     );
   }
