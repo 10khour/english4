@@ -128,7 +128,8 @@ class _WordState extends State<WordWidget> {
       style: const TextStyle(fontSize: 40),
       text: exam,
       tags: {
-        'strong': StyledTextTag(style: TextStyle(fontWeight: FontWeight.bold)),
+        'strong':
+            StyledTextTag(style: const TextStyle(fontWeight: FontWeight.bold)),
       },
     );
   }
