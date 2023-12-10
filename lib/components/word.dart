@@ -37,7 +37,7 @@ class _WordState extends State<WordWidget> {
           Row(
             children: [
               SizedBox(
-                width: 700,
+                width: 900,
                 child: Row(children: [
                   Text(
                     widget.words![index].en,
@@ -51,11 +51,18 @@ class _WordState extends State<WordWidget> {
                   ),
                 ]),
               ),
-              const SizedBox(
-                width: 100,
-              ),
-              Image.asset(
-                  "assets/${widget.words?[index].index}/${widget.words?[index].image}"),
+              const Spacer(),
+              Container(
+                  width: 260,
+                  height: 260,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          130) // Adjust the radius as needed
+                      ),
+                  child: Image.asset(
+                      height: 250,
+                      "assets/${widget.words?[index].index}/${widget.words?[index].image}")),
             ],
           ),
           const SizedBox(
