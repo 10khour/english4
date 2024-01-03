@@ -1,6 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:english4k/constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:styled_text/styled_text.dart';
@@ -94,7 +93,6 @@ class _WordState extends State<WordWidget> {
         if (event is RawKeyDownEvent) {
           // just keyDown
           String key = event.logicalKey.keyLabel;
-          print("===$key");
           if (key == 'Escape' || key == 'Go Back') {
             player.pause();
 
