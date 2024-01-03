@@ -1,5 +1,5 @@
+import 'package:english4k/constants.dart';
 import 'package:english4k/pages/menu.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -10,17 +10,15 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (kDebugMode) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) {
-            return PageManu(index: index);
-          }));
-        }
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+          return PageManu(index: index);
+        }));
       },
-      child: Image.asset(
+      child: Image.network(
         height: 450,
         fit: BoxFit.fitHeight,
-        "assets/$index.jpg",
+        "$host/assets/$index.jpg",
       ),
     );
   }

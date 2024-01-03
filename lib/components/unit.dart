@@ -16,7 +16,6 @@ class _UnitWdiget extends State<UnitWdiget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Image.asset("assets/${widget.unit.index}/${widget.unit.image}"),
         TextButton(
           child: Text(
             widget.unit.en,

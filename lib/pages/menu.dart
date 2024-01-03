@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:english4k/components/unit.dart';
+import 'package:english4k/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,12 +46,14 @@ class _PageManuState extends State<PageManu> {
   @override
   void initState() {
     super.initState();
-    String path = "assets/${widget.index}/data.json";
+    String url = "$host/assets/${widget.index}/data.json";
 
     if (kDebugMode) {
-      print("loading $path");
+      print("loading $url");
     }
-    loadAsset(path).then((value) {
+    http.get(Uri.parse(url)).then((res) {
+      String value = res.body;
+      value = utf8.decode(value.codeUnits, allowMalformed: true);
       Map<String, dynamic> hash = jsonDecode(value);
       List<Unit> units = List.empty(growable: true);
       List<dynamic> flashcards = hash['flashcard'] as List<dynamic>;
@@ -58,6 +62,16 @@ class _PageManuState extends State<PageManu> {
       }
       renderUnits(units);
     });
+
+    // loadAsset(path).then((value) {
+    //   Map<String, dynamic> hash = jsonDecode(value);
+    //   List<Unit> units = List.empty(growable: true);
+    //   List<dynamic> flashcards = hash['flashcard'] as List<dynamic>;
+    //   for (var element in flashcards) {
+    //     units.add(Unit.fromJson(widget.index, element));
+    //   }
+    //   renderUnits(units);
+    // });
   }
 
   renderUnits(List<Unit> list) {

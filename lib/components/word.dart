@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:english4k/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,40 +30,40 @@ class _WordState extends State<WordWidget> {
   Widget build(BuildContext context) {
     player.stop();
     if (widget.words != null && index < widget.words!.length && index >= 0) {
-      player.play(AssetSource(
-          "${widget.words?[index].index}/${widget.words?[index].sound}"));
+      player.play(UrlSource(
+          "$host/assets/${widget.words?[index].index}/${widget.words?[index].sound}"));
       body = Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
+            mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(
-                width: 900,
-                child: Row(children: [
-                  Text(
-                    widget.words![index].en,
-                    style: const TextStyle(
-                        fontSize: 60, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(width: 40),
-                  Text(
-                    widget.words![index].pron,
-                    style: const TextStyle(fontSize: 45),
-                  ),
-                ]),
-              ),
+              Row(children: [
+                Text(
+                  widget.words![index].en,
+                  style: const TextStyle(
+                      fontSize: 60, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  widget.words![index].pron,
+                  style: const TextStyle(fontSize: 45),
+                ),
+              ]),
               const Spacer(),
               Container(
-                  width: 260,
-                  height: 260,
+                  width: 300,
+                  height: 300,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                          130) // Adjust the radius as needed
+                          150) // Adjust the radius as needed
                       ),
-                  child: Image.asset(
+                  child: Image.network(
                       height: 250,
-                      "assets/${widget.words?[index].index}/${widget.words?[index].image}")),
+                      "$host/assets/${widget.words?[index].index}/${widget.words?[index].image}")),
             ],
           ),
           const SizedBox(
@@ -96,7 +97,7 @@ class _WordState extends State<WordWidget> {
         if (event is RawKeyDownEvent) {
           // just keyDown
           String key = event.logicalKey.keyLabel;
-          if (key == 'Escape') {
+          if (key == 'Escape' || key == 'Go Back') {
             player.pause();
 
             Navigator.pop(context);
@@ -108,17 +109,19 @@ class _WordState extends State<WordWidget> {
             });
           }
           if (key == 'Arrow Down') {
-            player.pause();
-
-            setState(() {
-              index++;
-            });
+            player.pause().then(
+              (value) {
+                setState(() {
+                  index++;
+                });
+              },
+            );
           }
           if (key == ' ') {
-            player.pause();
-
-            setState(() {
-              index++;
+            player.pause().then((v) {
+              setState(() {
+                index++;
+              });
             });
           }
         }
