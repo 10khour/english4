@@ -62,16 +62,6 @@ class _PageManuState extends State<PageManu> {
       }
       renderUnits(units);
     });
-
-    // loadAsset(path).then((value) {
-    //   Map<String, dynamic> hash = jsonDecode(value);
-    //   List<Unit> units = List.empty(growable: true);
-    //   List<dynamic> flashcards = hash['flashcard'] as List<dynamic>;
-    //   for (var element in flashcards) {
-    //     units.add(Unit.fromJson(widget.index, element));
-    //   }
-    //   renderUnits(units);
-    // });
   }
 
   renderUnits(List<Unit> list) {

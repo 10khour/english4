@@ -8,10 +8,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(37, 137, 189, 0.6),
-        body: Wrap(
-          runSpacing: 20,
-          spacing: 20,
-          children: getBooks(6),
+        body: Container(
+          padding: const EdgeInsets.only(left: 10, top: 10),
+          child: Wrap(
+            runSpacing: 20,
+            spacing: 20,
+            children: getBooks(6),
+          ),
         ));
   }
 

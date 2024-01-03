@@ -83,7 +83,7 @@ class _WordState extends State<WordWidget> {
       body = const Center(
           child: Text(
         "End",
-        style: TextStyle(fontSize: 40),
+        style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
       ));
     }
 
@@ -91,12 +91,10 @@ class _WordState extends State<WordWidget> {
       autofocus: true,
       focusNode: focusNode,
       onKey: (event) {
-        if (kDebugMode) {
-          print(event);
-        }
         if (event is RawKeyDownEvent) {
           // just keyDown
           String key = event.logicalKey.keyLabel;
+          print("===$key");
           if (key == 'Escape' || key == 'Go Back') {
             player.pause();
 
